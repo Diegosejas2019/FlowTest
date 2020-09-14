@@ -12,10 +12,6 @@ import com.diego.sejas.flowtest.R;
 import com.diego.sejas.flowtest.models.WeatherResponse;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,20 +36,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.HolderView holder, int position) {
 
-
-       /* Date d = new Date();
-        String date= weatherList.get(0).lista.get(position).main.;
-        DateFormat df=new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            d = df.parse(date);
-        } catch (ParseException e) {}*/
-        //Date d = weatherList.get(0).lista.get(position).date;
-        java.util.Date time=new java.util.Date((long)weatherList.get(0).lista.get(position).date*1000);
-
-        holder.type.setText(time +  weatherList.get(0).lista.get(position).weather.get(0).getMain());
-        holder.temp.setText("Temp :" +weatherList.get(0).lista.get(position).main.getTemp());
-        holder.min.setText("Temp min: " + weatherList.get(0).lista.get(position).main.getTemp_min());
-        holder.max.setText("Temp max: " + weatherList.get(0).lista.get(position).main.getTemp_max());
+        java.util.Date time=new java.util.Date(weatherList.get(0).lista.get(position).date*1000);
+        String timeText = time + "\n" +  weatherList.get(0).lista.get(position).weather.get(0).getMain();
+        String temText = "Temp :" +weatherList.get(0).lista.get(position).main.getTemp();
+        String min = "Temp min: " + weatherList.get(0).lista.get(position).main.getTemp_min();
+        String max = "Temp max: " + weatherList.get(0).lista.get(position).main.getTemp_max();
+        
+        holder.type.setText(timeText);
+        holder.temp.setText(temText);
+        holder.min.setText(min);
+        holder.max.setText(max);
 
         String url = weatherList.get(0).lista.get(position).weather.get(0).getIcon();
         Picasso.get().load( "http://openweathermap.org/img/w/" + url + ".png")
@@ -76,11 +68,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
         public HolderView(@NonNull View itemView) {
             super(itemView);
-            type = (TextView)itemView.findViewById(R.id.txtType);
-            temp = (TextView)itemView.findViewById(R.id.txtTemp);
-            min = (TextView)itemView.findViewById(R.id.txtMin);
-            max = (TextView)itemView.findViewById(R.id.txtMax);
-            image = (ImageView)itemView.findViewById(R.id.icon);
+            type = itemView.findViewById(R.id.txtType);
+            temp = itemView.findViewById(R.id.txtTemp);
+            min = itemView.findViewById(R.id.txtMin);
+            max = itemView.findViewById(R.id.txtMax);
+            image = itemView.findViewById(R.id.icon);
         }
     }
 }
